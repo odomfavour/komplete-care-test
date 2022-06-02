@@ -46,7 +46,6 @@ export default {
     icons: true // Install the IconsPlugin
   },
 
-
   apollo: {
     clientConfigs: {
       default: {
