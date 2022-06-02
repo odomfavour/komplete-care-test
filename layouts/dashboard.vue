@@ -8,62 +8,62 @@
         <div class="sidebar-body">
           <ul class="sidebar-nav">
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/index" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <dashboard-icon />
                 <span>Dashboard</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/profile" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <ProfileIcon />
                 <span>Profile</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <ServicesIcon />
                 <span>Services</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <MedicalRecordsIcon />
                 <span>Medical Records</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <CareWalletIcon />
                 <span>Care Wallet</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <MessagesIcon />
                 <span>Messages</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <ResourcesIcon />
                 <span>Resources</span>
               </nuxt-link>
             </li>
             <hr class="border w-100" />
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <AccountSettingIcon />
                 <span>Account Settings</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <ContactSupportIcon />
                 <span>Contact Support</span>
               </nuxt-link>
             </li>
             <li class="sidebar-nav-item">
-              <nuxt-link to="/dashboard/settings" class="sidebar-nav-link">
+              <nuxt-link to="#" class="sidebar-nav-link">
                 <LogoutIcon />
                 <span>Logout</span>
               </nuxt-link>
