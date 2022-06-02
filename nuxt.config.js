@@ -52,9 +52,9 @@ export default {
       default: {
         httpEndpoint: 'https://testdrive.kompletecare.com/graphql',
         httpLinkOptions: {
-          fetchOptions: {
-            mode: 'no-cors' //Cors Needed for external Cross origins, need to allow headers from server
-          },
+          // fetchOptions: {
+          //   mode: 'no-cors' //Cors Needed for external Cross origins, need to allow headers from server
+          // },
           headers: {
             "Authorization": "Bearer 11|BT6aPIowwhccFdbT8ZxAI7sMuvgYeFaDZCQMX8kG"
           }
