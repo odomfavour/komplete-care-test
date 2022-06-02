@@ -1,0 +1,10 @@
+query {
+    investigations {
+    id
+    title
+    data {
+            id
+            result
+        }
+    }
+}

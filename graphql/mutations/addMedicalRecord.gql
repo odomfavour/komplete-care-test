@@ -1,0 +1,9 @@
+mutation ($investigation: [ID!]!, $ctscan:String!, $mri: String!, $developer: String!) {
+  add_medical_record(investigations: $investigation, ctscan: $ctscan, mri: $mri, developer: $developer) {
+    id
+    mri
+    patient{
+      name
+    }
+  }
+}

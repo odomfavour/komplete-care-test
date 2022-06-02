@@ -1,0 +1,7 @@
+// apollo: {
+//    clientConfigs: {
+//      default: {
+//        httpEndpoint: process.env.HASURA_ENDPOINT
+//      }
+//    }
+//  },
