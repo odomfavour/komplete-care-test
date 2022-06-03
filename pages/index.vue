@@ -26,7 +26,6 @@
             </b-form-group>
           </div>
         </div>
-        {{ selections }}
         <hr />
         <h5 class="mt-4 text-primary">Ultrasound Scan</h5>
         <div class="row">
