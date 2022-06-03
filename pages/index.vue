@@ -197,12 +197,9 @@ export default {
       }
     },
     async addMedicalRecord() {
-      console.log(this.selections, this.ctScan, this.mri)
-      if (!this.selections) {
-        this.alert = "Ensure to select the investigations";
-        this.$bvModal.show("modal-alert");
-      } else {
-          try {
+      console.log(this.selections, this.ctScan, this.mri);
+      if (this.selections.length && this.mri && this.ctScan) {
+        try {
           const res = await this.$apollo
             .mutate({
               mutation: addMedicalRecordQuery,
@@ -213,14 +210,15 @@ export default {
                 developer: "Chinwe",
               },
             })
-            .then((res) => {
               this.$bvModal.show("modal-success");
-              console.log("res", res);
-            });
+              console.log("res", res)
         } catch (e) {
           this.error = e;
           this.$bvModal.show("modal-error");
         }
+      } else {
+        this.alert = "Ensure to select the investigations";
+        this.$bvModal.show("modal-alert");
       }
     },
   },
