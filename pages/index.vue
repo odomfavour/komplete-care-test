@@ -36,9 +36,8 @@
           >
             <b-form-group>
               <b-form-checkbox-group
-                id="checkbox-1"
+                id="checkbox-2"
                 :name="`checkbox-${index}`"
-                v-model="selections"
               >
                 <b-form-checkbox :value="sign.id">{{
                   sign.title
@@ -198,8 +197,12 @@ export default {
       }
     },
     async addMedicalRecord() {
-      if (this.investigations && this.ctScan && this.mri) {
-        try {
+      console.log(this.selections, this.ctScan, this.mri)
+      if (!this.selections) {
+        this.alert = "Ensure to select the investigations";
+        this.$bvModal.show("modal-alert");
+      } else {
+          try {
           const res = await this.$apollo
             .mutate({
               mutation: addMedicalRecordQuery,
@@ -218,9 +221,6 @@ export default {
           this.error = e;
           this.$bvModal.show("modal-error");
         }
-      } else {
-        this.alert = "Ensure to select the investigations";
-        this.$bvModal.show("modal-alert");
       }
     },
   },
