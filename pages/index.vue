@@ -47,12 +47,6 @@
         <hr class="my-3" />
         <div class="row">
           <div class="col-md-6 mb-3">
-            <!-- <b-form-group label="CT Scan">
-            <b-form-select
-              v-model="selected"
-              :options="options"
-            ></b-form-select>
-          </b-form-group> -->
             <b-form-group
               id="input-group-1"
               label="CT Scan"
@@ -68,12 +62,6 @@
             </b-form-group>
           </div>
           <div class="col-md-6 mb-3">
-            <!-- <b-form-group label="MRI">
-            <b-form-select
-              v-model="selected"
-              :options="options"
-            ></b-form-select>
-          </b-form-group> -->
             <b-form-group
               id="input-group-mri"
               label="MRI"
@@ -91,15 +79,30 @@
         </div>
         <div class="d-flex mt-3 justify-content-end">
           <button class="btn btn-primary" type="submit">Save and Send</button>
-          <button class="btn btn-primary" @click="getUser">
-            Save and Send
-          </button>
+          <!-- <button class="btn btn-primary" @click="getUser">
+            getUser
+          </button> -->
         </div>
       </b-form>
     </b-card>
-     <b-modal id="modal-success" title="Success" centered size="sm" hide-footer>
-    <p class="my-4">Medical record added successfully</p>
-  </b-modal>
+    <b-modal id="modal-success" title="Success" centered size="sm" hide-footer>
+      <div class="text-center">
+        <b-icon icon="check-circle-fill" variant="success" font-scale="7.5"></b-icon>
+      </div>
+      <p class="my-4">Medical record added successfully</p>
+    </b-modal>
+    <b-modal id="modal-error" title="Error" centered size="sm" hide-footer>
+      <div class="text-center">
+        <b-icon icon="exclamation-triangle-fill" variant="danger" font-scale="7.5"></b-icon>
+      </div>
+      <p class="my-4">{{ error }}</p>
+    </b-modal>
+    <b-modal id="modal-alert" title="Alert" centered size="sm" hide-footer>
+      <div class="text-center">
+        <b-icon icon="exclamation-lg" variant="warning" font-scale="7.5"></b-icon>
+      </div>
+      <p class="my-4">{{ alert }}</p>
+    </b-modal>
   </div>
 </template>
 
@@ -129,6 +132,8 @@ export default {
       me: {
         name: "Chinwe",
       },
+      error: "",
+      alert: ""
     };
   },
   apollo: {
@@ -150,7 +155,8 @@ export default {
           })
           .then((res) => console.log(res));
       } catch (e) {
-        console.error(e.response);
+        this.error = e;
+        this.$bvModal.show("modal-error");
       }
     },
     async onSubmit() {
@@ -165,7 +171,8 @@ export default {
           })
           .then((res) => console.log("res", res));
       } catch (e) {
-        console.error(e);
+        this.error = e;
+        this.$bvModal.show("modal-error");
       }
     },
     async addMedicalRecord() {
@@ -175,21 +182,29 @@ export default {
         mri: this.mri,
         developer: this.me.name,
       });
-      this.$bvModal.show('modal-success');
-      try {
-        const res = await this.$apollo
-          .mutate({
-            mutation: addMedicalRecordQuery,
-            variables: {
-              investigation: ["1", "3"],
-              ctscan: "Scan needed",
-              mri: "full body",
-              developer: "Chinwe",
-            },
-          })
-          .then((res) => console.log("res", res));
-      } catch (e) {
-        console.error(e);
+      if (this.investigations && this.ctScan && this.mri) {
+        try {
+          const res = await this.$apollo
+            .mutate({
+              mutation: addMedicalRecordQuery,
+              variables: {
+                investigation: this.investigations,
+                ctscan: this.ctScan,
+                mri: this.mri,
+                developer: "Chinwe",
+              },
+            })
+            .then((res) => {
+              this.$bvModal.show("modal-success");
+              console.log("res", res);
+            });
+        } catch (e) {
+          this.error = e;
+          this.$bvModal.show("modal-error");
+        }
+      } else {
+        this.alert = 'Ensure to select the investigations';
+        this.$bvModal.show("modal-alert");
       }
     },
   },

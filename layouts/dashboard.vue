@@ -75,7 +75,7 @@
             <b-icon icon="x-lg"></b-icon>
           </button>
         </div>
-        <button @click.prevent="login" class="mt-5 btn">click</button>
+        <!-- <button @click.prevent="login" class="mt-5 btn">click</button> -->
       </div>
     </div>
     <div class="main-section">
@@ -118,25 +118,25 @@ export default {
       console.log('toggle sidebar')
       document.body.classList.toggle('sidebar-open')
     },
-    async login() {
-      try {
-        await this.$apollo.mutate({
-            mutation: gql` mutation login ($email: String!, $password: String!) {
-                login(email: $email, password: $password)
-              }
-            `,
-            variables: {
-              email: 'tester@kompletecare.com',
-              password: 'password',
-            },
-          })
-          .then((res) => {
-            console.log(res)
-          })
-      } catch (error) {
-        console.log(error)
-      }
-    },
+    // async login() {
+    //   try {
+    //     await this.$apollo.mutate({
+    //         mutation: gql` mutation login ($email: String!, $password: String!) {
+    //             login(email: $email, password: $password)
+    //           }
+    //         `,
+    //         variables: {
+    //           email: 'tester@kompletecare.com',
+    //           password: 'password',
+    //         },
+    //       })
+    //       .then((res) => {
+    //         console.log(res)
+    //       })
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
   },
 }
 </script>
