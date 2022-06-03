@@ -31,16 +31,20 @@
         <div class="row">
           <div
             class="col-lg-3 col-md-4 col-12 mb-3"
-            v-for="(sign, index) in 6"
-            :key="index"
+            v-for="(sign, index) in scans"
+            :key="sign.id"
           >
-            <b-form-checkbox
-              id="checkbox-1"
-              :name="`checkbox-${index}`"
-              value="accepted"
-            >
-              Abdomen
-            </b-form-checkbox>
+            <b-form-group>
+              <b-form-checkbox-group
+                id="checkbox-1"
+                :name="`checkbox-${index}`"
+                v-model="selections"
+              >
+                <b-form-checkbox :value="sign.id">{{
+                  sign.title
+                }}</b-form-checkbox>
+              </b-form-checkbox-group>
+            </b-form-group>
           </div>
         </div>
         <hr class="my-3" />
@@ -86,19 +90,31 @@
     </b-card>
     <b-modal id="modal-success" title="Success" centered size="sm" hide-footer>
       <div class="text-center">
-        <b-icon icon="check-circle-fill" variant="success" font-scale="7.5"></b-icon>
+        <b-icon
+          icon="check-circle-fill"
+          variant="success"
+          font-scale="7.5"
+        ></b-icon>
       </div>
       <p class="my-4">Medical record added successfully</p>
     </b-modal>
     <b-modal id="modal-error" title="Error" centered size="sm" hide-footer>
       <div class="text-center">
-        <b-icon icon="exclamation-triangle-fill" variant="danger" font-scale="7.5"></b-icon>
+        <b-icon
+          icon="exclamation-triangle-fill"
+          variant="danger"
+          font-scale="7.5"
+        ></b-icon>
       </div>
       <p class="my-4">{{ error }}</p>
     </b-modal>
     <b-modal id="modal-alert" title="Alert" centered size="sm" hide-footer>
       <div class="text-center">
-        <b-icon icon="exclamation-lg" variant="warning" font-scale="7.5"></b-icon>
+        <b-icon
+          icon="exclamation-lg"
+          variant="warning"
+          font-scale="7.5"
+        ></b-icon>
       </div>
       <p class="my-4">{{ alert }}</p>
     </b-modal>
@@ -128,11 +144,19 @@ export default {
         { value: "d", text: "This one is disabled", disabled: true },
       ],
       investigations: [],
+      scans: [
+        { id: 1, title: "Obstetric" },
+        { id: 2, title: "Abdominal" },
+        { id: 3, title: "Pelvis" },
+        { id: 4, title: "Prostrate" },
+        { id: 5, title: "Breast" },
+        { id: 6, title: "Thyroid" },
+      ],
       me: {
         name: "Chinwe",
       },
       error: "",
-      alert: ""
+      alert: "",
     };
   },
   apollo: {
@@ -140,7 +164,6 @@ export default {
       query: investigationsQuery,
       update(data) {
         this.investigations = data.investigations;
-        console.log("investigations updated", this.investigations);
         return data.investigations;
       },
     },
@@ -175,19 +198,13 @@ export default {
       }
     },
     async addMedicalRecord() {
-      console.log("addMedicalRecord", {
-        investigations: this.selections,
-        ctScan: this.ctScan,
-        mri: this.mri,
-        developer: this.me.name,
-      });
       if (this.investigations && this.ctScan && this.mri) {
         try {
           const res = await this.$apollo
             .mutate({
               mutation: addMedicalRecordQuery,
               variables: {
-                investigation: this.investigations,
+                investigation: this.selections,
                 ctscan: this.ctScan,
                 mri: this.mri,
                 developer: "Chinwe",
@@ -202,7 +219,7 @@ export default {
           this.$bvModal.show("modal-error");
         }
       } else {
-        this.alert = 'Ensure to select the investigations';
+        this.alert = "Ensure to select the investigations";
         this.$bvModal.show("modal-alert");
       }
     },
